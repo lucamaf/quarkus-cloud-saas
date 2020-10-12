@@ -37,6 +37,12 @@ public class OrderResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/commitOrder")
     public Response add(Order order) {
+
+        boolean valid = order.validateOrder();
+        if (!valid){
+            LOG.info("====== WRONG INPUT ======");
+            return Response.status(Response.Status.BAD_REQUEST).entity("Order not processable").build();
+        }
         Random rand = new Random();
         int choice = rand.nextInt(4);
         if (choice == 0){

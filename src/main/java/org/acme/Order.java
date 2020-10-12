@@ -66,6 +66,21 @@ public class Order {
         this.paymentMethods = paymentMethods;
     }
 
+    public boolean validateOrder(){
+        boolean valid = true;
+        ArrayList<String> values = new ArrayList<>();
+        values.add("CreditCard");
+        values.add("Paypal");
+        values.add("WireTransfer");
+        values.add("CashOnDelivery");
+        ArrayList<String> diff = this.getPaymentMethods();
+        diff.removeAll(values);   
+        if (diff.size() > 0){
+            valid = false;
+        }
+
+        return valid;
+    }
     public String getId() {
         return this.id;
     }
